@@ -72,7 +72,7 @@ const Notes = ({ userInfo }) => {
                 setCategoryList(data.categoryList);
 
                 let cat = data.categoryList.find((category) => category.categoryId == categoryId);
-                setCurrentCategory(cat ? cat.categoryName : null);
+                setCurrentCategory(cat ? cat.categoryName : data.categoryList[0].categoryName);
             }
         });
     };
@@ -151,7 +151,7 @@ const Notes = ({ userInfo }) => {
                                                 <Col xs lg="6" style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>
                                                     {note.noteText}
                                                 </Col>
-                                                <Col xs lg="2">{note.dateModified}</Col>
+                                                <Col xs lg="2">{note.dateModified.substring(0, 10)}</Col>
                                                 <Col xs lg="1">
                                                     <ButtonToolbar className="justify-content-md-center" aria-label="Toolbar with button groups">
                                                         <ButtonGroup className="me-2" aria-label="First group">

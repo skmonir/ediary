@@ -1,7 +1,5 @@
 package com.skmonir.webdiary.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -37,7 +35,6 @@ public class Note {
     private Date dateCreated;
 
     @Column(name = "DATE_MODIFIED")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-mm-yyyy")
     private Date dateModified;
 
     public Note() {}
