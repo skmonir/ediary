@@ -40,6 +40,17 @@ public class Note {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-mm-yyyy")
     private Date dateModified;
 
+    public Note() {}
+
+    public Note(long categoryId, String owner, String title, String noteText, Date dateCreated, Date dateModified) {
+        this.categoryId = categoryId;
+        this.owner = owner;
+        this.title = title;
+        this.noteText = noteText;
+        this.dateCreated = dateCreated;
+        this.dateModified = dateModified;
+    }
+
     public long getNoteId() {
         return noteId;
     }
