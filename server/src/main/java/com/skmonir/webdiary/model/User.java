@@ -3,7 +3,12 @@ package com.skmonir.webdiary.model;
 import javax.persistence.*;
 
 @Entity(name = "USER")
-@Table(name = "USERS")
+@Table(
+        name = "USERS",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "USERNAME_UNIQUE", columnNames = {"USERNAME"})
+        }
+)
 public class User {
     @Id
     @SequenceGenerator(

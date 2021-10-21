@@ -32,6 +32,13 @@ public class Category {
     @Column(name = "CATEGORY_DESC", length = 150)
     private String categoryDesc;
 
+    public Category() {}
+
+    public Category(String owner, String categoryName) {
+        this.owner = owner;
+        this.categoryName = categoryName;
+    }
+
     public long getCategoryId() {
         return categoryId;
     }
