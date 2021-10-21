@@ -3,6 +3,7 @@ import Notebooks from './components/Notebooks';
 import Notes from './components/Notes';
 import Note from './components/Note';
 import Login from './components/Login';
+import Register from './components/Register';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
@@ -38,6 +39,9 @@ function App() {
                   </Route>
                   <Route path="/login">
                     <Login setUserInfo={setUserInfo} />
+                  </Route>
+                  <Route path="/register">
+                    <Register setUserInfo={setUserInfo} />
                   </Route>
                   {/* <Route path="*">
                   <NotFound />

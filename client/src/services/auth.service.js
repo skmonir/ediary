@@ -23,6 +23,11 @@ class AuthService {
         return axios.post(API_URL + "register", {
             username,
             password
+        }).then(response => {
+            if (response.data.accessToken) {
+                localStorage.setItem("webdiary_auth_token", JSON.stringify(response.data));
+            }
+            return response.data;
         });
     }
 
