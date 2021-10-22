@@ -56,6 +56,10 @@ class DataService {
         return this.getData('note/getNoteList', params);
     }
 
+    searchAllNotes(params) {
+        return this.postData('note/search', params);
+    }
+
     saveNote(params) {
         return this.postData('note/createUpdate', params);
     }

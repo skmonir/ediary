@@ -3,9 +3,15 @@ package com.skmonir.webdiary.service;
 import com.skmonir.webdiary.dto.*;
 import com.skmonir.webdiary.model.Note;
 import com.skmonir.webdiary.repository.NoteRepo;
+import com.skmonir.webdiary.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,6 +21,9 @@ public class NoteService {
 
     @Autowired
     NoteRepo noteRepo;
+
+    @Autowired
+    EntityManager em;
 
     public NoteResponse saveUpdateNote(NoteSaveUpdateRequest request) {
         NoteResponse response = new NoteResponse();
@@ -66,6 +75,41 @@ public class NoteService {
     public NoteResponse getNote(long noteId) {
         NoteResponse response = new NoteResponse();
         response.setNote(noteRepo.findByNoteId(noteId));
+        return response;
+    }
+
+    public NoteListResponse searchNotes(Note searchNote) {
+        NoteListResponse response = new NoteListResponse();
+
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Note> cq = cb.createQuery(Note.class);
+
+        Root<Note> note = cq.from(Note.class);
+
+        cq.where(cb.equal(cb.upper(note.get("owner")), searchNote.getOwner().toUpperCase()));
+
+        if (searchNote.getDateCreated() != null) {
+            Date fromDate = DateUtil.getDateWithoutTime(searchNote.getDateCreated());
+            Date toDate = DateUtil.getDateWithoutTime(DateUtil.getTomorrowDate(searchNote.getDateCreated()));
+
+            cq.where(cb.greaterThanOrEqualTo(note.get("dateCreated"), fromDate));
+            cq.where(cb.lessThan(note.get("dateCreated"), toDate));
+        }
+
+        if (searchNote.getTitle() != null) {
+            Predicate titlePredicate = cb.like(cb.upper(note.get("title")), "%" + searchNote.getTitle().toUpperCase() + "%");
+            cq.where(titlePredicate);
+        }
+
+        if (searchNote.getNoteText() != null) {
+            Predicate noteTextPredicate = cb.like(cb.upper(note.get("noteText")), "%" + searchNote.getNoteText().toUpperCase() + "%");
+            cq.where(noteTextPredicate);
+        }
+
+        TypedQuery<Note> query = em.createQuery(cq);
+
+        response.setNoteList(query.getResultList());
+
         return response;
     }
 }

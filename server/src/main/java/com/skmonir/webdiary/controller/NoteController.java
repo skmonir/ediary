@@ -60,4 +60,16 @@ public class NoteController {
         }
         return response;
     }
+
+    @PostMapping("search")
+    public NoteListResponse searchNote(@RequestBody Note searchNote) {
+        NoteListResponse response;
+        try {
+            response = noteService.searchNotes(searchNote);
+        } catch (Exception ex) {
+            response = new NoteListResponse();
+            response.setMessage(ex.getMessage());
+        }
+        return response;
+    }
 }

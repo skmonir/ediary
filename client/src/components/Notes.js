@@ -3,13 +3,14 @@ import {
     Container, Row, Col, OverlayTrigger, Button, Tooltip, Modal,
     Alert, ButtonGroup, ButtonToolbar, InputGroup, FormControl, ListGroup
 } from "react-bootstrap";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faExternalLinkAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
 import DataService from './../services/data.service';
 
 const Notes = ({ userInfo }) => {
     const history = useHistory();
+    const queryParams = history.location.state?.state?.queryParams;
 
     const { categoryId } = useParams();
 
@@ -29,9 +30,13 @@ const Notes = ({ userInfo }) => {
             history.push('/login');
         } else {
             fetchAllCategories();
-            fetchAllNotes();
+            if (queryParams) {
+                searchAllNotes();
+            } else {
+                fetchAllNotes();
+            }
         }
-    }, [categoryId]);
+    }, [categoryId, queryParams]);
 
     const addNewNote = () => {
         setNewNote({});
@@ -93,6 +98,22 @@ const Notes = ({ userInfo }) => {
         });
     };
 
+    const searchAllNotes = () => {
+        let params = {
+            "owner": userInfo.username,
+            ...queryParams
+        };
+
+        DataService.searchAllNotes(params).then(data => {
+            if (data.noteList) {
+                data.noteList.sort((a, b) => {
+                    return b.noteId - a.noteId; // descending order
+                });
+                setNoteList(data.noteList);
+            }
+        });
+    };
+
     const saveNote = () => {
         if (!validateNote()) {
             return;
@@ -127,6 +148,15 @@ const Notes = ({ userInfo }) => {
         });
     }
 
+    function formatDate(d) {
+        if (!d) {
+            return d;
+        }
+        let options = { year: 'numeric', month: 'short', day: 'numeric' };
+        let date = new Date(d);
+        return date.toLocaleDateString("en-US", options);
+    }
+
     return (
         <Container>
             <Row className="justify-content-md-center">
@@ -151,7 +181,7 @@ const Notes = ({ userInfo }) => {
                                                 <Col xs lg="6" style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>
                                                     {note.noteText}
                                                 </Col>
-                                                <Col xs lg="2">{note.dateModified.substring(0, 10)}</Col>
+                                                <Col xs lg="2">{formatDate(note.dateModified.substring(0, 10))}</Col>
                                                 <Col xs lg="1">
                                                     <ButtonToolbar className="justify-content-md-center" aria-label="Toolbar with button groups">
                                                         <ButtonGroup className="me-2" aria-label="First group">
