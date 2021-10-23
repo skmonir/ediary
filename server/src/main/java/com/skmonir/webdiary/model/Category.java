@@ -23,7 +23,7 @@ public class Category {
     @Column(name = "CATEGORY_ID", updatable = false)
     private long categoryId;
 
-    @Column(name = "OWNER", nullable = false, length = 15)
+    @Column(name = "OWNER", nullable = false, length = 20)
     private String owner;
 
     @Column(name = "CATEGORY_NAME", nullable = false, length = 15)

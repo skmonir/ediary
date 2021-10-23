@@ -200,7 +200,7 @@ const Notebooks = ({ userInfo }) => {
                 </Modal.Header>
                 <Modal.Body>
                     <InputGroup>
-                        <FormControl placeholder="Enter category name" value={modalCategoryName} onChange={(e) => setModalCategoryName(e.target.value)} />
+                        <FormControl maxLength="15" placeholder="Enter category name" value={modalCategoryName} onChange={(e) => setModalCategoryName(e.target.value)} />
                     </InputGroup>
                     <br />
                     {/* <InputGroup>

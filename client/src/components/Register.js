@@ -41,10 +41,10 @@ const Register = ({ setUserInfo }) => {
                         <div className="panel-body">
                             <hr />
                             <InputGroup className="mb-2">
-                                <FormControl placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+                                <FormControl maxLength="20" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
                             </InputGroup>
                             <InputGroup className="mb-2">
-                                <FormControl type="password" name="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                                <FormControl maxLength="20" type="password" name="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
                             </InputGroup>
                             <hr />
                             <Button variant="primary" size="md" block onClick={doRegister} disabled={!username || !password || !username.trim() || !password.trim()}><FontAwesomeIcon icon={faSignInAlt} /> Register </Button>

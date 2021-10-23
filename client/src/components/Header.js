@@ -80,11 +80,11 @@ const Header = ({ userInfo, setUserInfo }) => {
                 </Modal.Header>
                 <Modal.Body>
                     <InputGroup>
-                        <FormControl placeholder="Enter Note Title" onChange={(e) => setNoteTitle(e.target.value)} />
+                        <FormControl maxLength="30" placeholder="Enter Note Title" onChange={(e) => setNoteTitle(e.target.value)} />
                     </InputGroup>
                     <br />
                     <InputGroup>
-                        <FormControl as="textarea" placeholder="Enter Your Note Here" onChange={(e) => setNoteText(e.target.value)} />
+                        <FormControl maxLength="1500" as="textarea" placeholder="Enter Your Note Here" onChange={(e) => setNoteText(e.target.value)} />
                     </InputGroup>
                     <br />
                     <Form.Group controlId="dateCreated">

@@ -130,7 +130,7 @@ const Note = ({ userInfo }) => {
                                     isEditing ? (
                                         <div>
                                             <InputGroup>
-                                                <FormControl placeholder="Enter Note Title" value={editedNote.title} onChange={(e) => setNoteTitle(e.target.value)} />
+                                                <FormControl maxLength="30" placeholder="Enter Note Title" value={editedNote.title} onChange={(e) => setNoteTitle(e.target.value)} />
                                             </InputGroup> <br />
                                             <InputGroup>
                                                 <FormControl as="select" value={editedNote.category} onChange={(e) => setNoteCategory(e.target.value)}>
@@ -143,7 +143,7 @@ const Note = ({ userInfo }) => {
                                             </InputGroup>
                                             <br />
                                             <InputGroup>
-                                                <FormControl as="textarea" value={editedNote.noteText} placeholder="Enter Your Note Here" onChange={(e) => setNoteText(e.target.value)} />
+                                                <FormControl maxLength="1500" as="textarea" value={editedNote.noteText} placeholder="Enter Your Note Here" onChange={(e) => setNoteText(e.target.value)} />
                                             </InputGroup>
                                         </div>
                                     ) : currentNote.title

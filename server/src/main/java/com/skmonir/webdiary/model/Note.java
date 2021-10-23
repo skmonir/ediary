@@ -22,7 +22,7 @@ public class Note {
     @Column(name = "CATEGORY_ID", nullable = false)
     private long categoryId;
 
-    @Column(name = "OWNER", nullable = false, length = 15)
+    @Column(name = "OWNER", nullable = false, length = 20)
     private String owner;
 
     @Column(name = "TITLE", nullable = false, length = 30)
