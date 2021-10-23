@@ -23,3 +23,6 @@ The project is built with React.js and Sprint boot.
 ```mvn spring-boot:run```
 5. [**optional**] Run Spring Boot app with java -jar command <br>
 ```java -jar target/webdiary-0.0.1-SNAPSHOT.jar```
+
+## Note
+In case the server is running on port other than 8080, fix the port of BASE_URL in `auth.service.js` and `data.service.js` inside `client/src/services` directory.
