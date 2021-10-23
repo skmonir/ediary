@@ -11,7 +11,8 @@ The project is built with React.js and Sprint boot.
 ## Running Client
 1. Go to project client directory
 2. Run command ``` npm install ``` to install the dependencies
-3. Run command ``` npm start ``` to start the front-end server
+3. Run command ``` npm install axios ``` to install the Axios (lightweight HTTP client).
+4. Run command ``` npm start ``` to start the front-end server
 
 ## Running Server
 1. Go to project server directory
